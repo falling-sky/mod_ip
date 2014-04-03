@@ -1,0 +1,15 @@
+DISTRIBUTE = configure config.h NOTICE README README.configuration mod_ip.c ip2asn.c ip2asn.h Makefile.in config.h.in scan-sixxs.pl
+DIST_WORKDIR = work
+
+dist-prep::
+	rm -fr $(DIST_WORKDIR)
+	mkdir -p $(DIST_WORKDIR)
+	autoconf
+	./configure
+	cp -p $(DISTRIBUTE) $(DIST_WORKDIR)
+
+dist-test: dist-prep
+	../dist_support/make-dist.pl --stage $(DIST_WORKDIR) --base mod_ip --branch test
+
+dist-stable: dist-prep
+	../dist_support/make-dist.pl --stage $(DIST_WORKDIR) --base mod_ip --branch stable

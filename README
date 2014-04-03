@@ -1,0 +1,26 @@
+   This module reports the IP the user came from, as a JSONP response.
+   GET requests required; CGI style arguments are permitted.
+
+     callback=[name]     to call a function name of your choosing
+     size=[number]       to bad the http data portion of the response.  (Does not attempt to offset header response)
+     asn=1               to do ASN lookups 
+     testip=IPADDRESS    to test a specific IP address
+
+   If the callback is "?", it will output to the screen (calling it "callback").
+   Any other, and a JSON mime type is used instead.
+
+Example:
+
+   http://test-ipv6.com/ip/?callback=hello&testip=2001:470:1:18::2&asn=1
+
+
+Returns:
+   hello({"ip":"2001:470:1:18::2","type":"ipv6","subtype":"","via":"","asn":"6939","asn_name":"HURRICANE - Hurricane Electric, Inc.","asnlist":"6939","padding":""})
+
+To install:
+
+   ./configure
+   make
+   sudo make install   
+   cat README.configuration
+

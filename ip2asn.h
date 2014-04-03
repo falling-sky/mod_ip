@@ -1,9 +1,5 @@
-All files in this subdirectory are subject to this
-license statement.  In some cases, the author name
-may be different, but the licensing terms the same.
-
-
-   Copyright 2013 Jason Fesler
+/*
+   Copyright 2013 Eric Vyncke
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -16,3 +12,25 @@ may be different, but the licensing terms the same.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+*/
+
+
+/* History
+- 2013/04/14: Returns the entire list of found ASNs.  --   Jason Fesler <jfesler@gigo.com>
+*/
+
+
+
+#ifndef __defined_ip2asn_h
+#define __defined_ip2asn_h
+
+#define MAX_REVERSE_NAME        256
+#define DNS_ANSWER_LENGTH       512
+
+unsigned long int GetASN(request_rec * r, const char * ip, char **asnlist_ptr) ;
+
+
+int GetASNName(const unsigned long asn, char * name, const int length) ;
+
+#endif 

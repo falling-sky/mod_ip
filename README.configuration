@@ -1,0 +1,47 @@
+
+Please don't forget to activate and configure mod_ip.
+
+################################################################
+# Activating mod_ip                                            #
+################################################################
+
+Something like this should be in your web server config; it should have been
+placed there automaticaelly with "make install".  The apache build system
+would have taken care of that for you.
+
+    LoadModule mod_ip_module      libexec/apache22/mod_ip.so
+
+The above step MAY be done for you, if you run "make activate".  
+This feature is OS dependent.  It is known that for Ubuntu you'll need
+to do this by hand.
+
+################################################################
+# Configuring mod_ip                                           #
+################################################################
+
+However, you'll still need to configure mod_ip to actually activate for a
+specific url.
+
+NOTE: AS OF APRIL 29, 2013, THE CONFIGURATION SHOULD BE UPDATED
+TO A MUCH SIMPLER CONFIGRUATION.  The module is now adding 
+cache and expires headers directly into the response.
+
+
+This is what we use with test-ipv6.com:
+
+    <VirtualHost test-ipv6.com>
+    ..
+
+    # mod_ip - reports IP address.  CGI arguements: callback= and fill=
+    # This is a custom module in the test-ipv6.com archive.
+    # This was implemented as a module for performance reasons.
+    # /ip/ is *the* single most requested element (9 or more times per client!)
+    <LocationMatch ^/ip/?$>
+     SetHandler mod_ip
+    </locationMatch>
+
+    # You may optionally include the output of ./scan-sixxs.pl here
+
+    </VirtualHost>
+
+
