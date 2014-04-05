@@ -1,5 +1,5 @@
 AC_PREREQ([2.68])
-AC_INIT([Falling Sky mod_ip], [0.1182], [http://code.google.com/p/falling-sky/issues/list], [mod_ip], [http://code.google.com/p/falling-sky])
+AC_INIT([Falling Sky mod_ip], [1.0], [http://code.google.com/p/falling-sky/issues/list], [mod_ip], [http://code.google.com/p/falling-sky])
 AC_HEADER_RESOLV
 AC_CHECK_HEADERS([arpa/inet.h arpa/nameser.h netinet/in.h stdlib.h string.h sys/socket.h])
 AC_CHECK_FUNCS([memset strchr])
