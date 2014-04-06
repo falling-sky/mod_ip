@@ -52,7 +52,6 @@ Even on platforms were activation was automatic, configuration was not.
 You'll need to explicitly enable mod_ip for the paths you want it in.
 For the falling-sky project, we outline it below:
 
-```ApacheConfig
 
 If you're using this as part of [[Falling-Sky|https://github.com/falling-sky/source/wiki]],
 you can skip this part; instead follow the Falling-Sky installation instructions.
@@ -60,6 +59,7 @@ you can skip this part; instead follow the Falling-Sky installation instructions
 If you are using this module for another project, you'll need to configure Apache
 to actually use this module for specific paths.  Something perhaps like this:
 
+```ApacheConfig
     <VirtualHost test-ipv6.com>
     ..
 
