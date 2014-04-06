@@ -1,4 +1,3 @@
-
 # mod_ip
 
 Apache module to report IP address to web clients as a JSON response
@@ -50,14 +49,11 @@ LoadModule mod_ip_module      libexec/apache22/mod_ip.so
 
 Even on platforms were activation was automatic, configuration was not.
 You'll need to explicitly enable mod_ip for the paths you want it in.
-For the falling-sky project, we outline it below:
+
+ * If you're installing falling-sky, go back to the install instructions.
+ * If you're installing mod_ip for another project, do something like this:
 
 
-If you're using this as part of [[Falling-Sky|https://github.com/falling-sky/source/wiki]],
-you can skip this part; instead follow the Falling-Sky installation instructions.
-
-If you are using this module for another project, you'll need to configure Apache
-to actually use this module for specific paths.  Something perhaps like this:
 
 ```ApacheConfig
     <VirtualHost test-ipv6.com>
