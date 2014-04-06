@@ -38,16 +38,13 @@ sudo make install
 # Activation 
 
 Something like this should be in your web server config; it should have been
-placed there automaticaelly with "make install".  The apache build system
-would have taken care of that for you.
+placed there automatically with `make install`.  The apache build system
+would have taken care of that for you.  Some platforms, however, do not (such
+as ubuntu), so you'll need to double check.
 
 ```ApacheConfig
 LoadModule mod_ip_module      libexec/apache22/mod_ip.so
 ```
-
-The above step MAY be done for you, if you run "make activate".  
-This feature is OS dependent.  It is known that for Ubuntu you'll need
-to do this by hand.
 
 # Configuration
 
@@ -57,19 +54,22 @@ For the falling-sky project, we outline it below:
 
 ```ApacheConfig
 
+If you're using this as part of [[Falling-Sky|https://github.com/falling-sky/source/wiki]],
+you can skip this part; instead follow the Falling-Sky installation instructions.
+
+If you are using this module for another project, you'll need to configure Apache
+to actually use this module for specific paths.  Something perhaps like this:
+
     <VirtualHost test-ipv6.com>
     ..
 
-    # mod_ip - reports IP address.  CGI arguements: callback= and fill=
-    # This is a custom module in the test-ipv6.com archive.
-    # This was implemented as a module for performance reasons.
-    # /ip/ is *the* single most requested element (9 or more times per client!)
+    # Set /ip/  to use mod_ip
     <LocationMatch ^/ip/?$>
      SetHandler mod_ip
     </locationMatch>
 
     # You may optionally include the output of ./scan-sixxs.pl here
-
+    ..
     </VirtualHost>
 ````
 
