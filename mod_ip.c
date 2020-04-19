@@ -370,13 +370,13 @@ gen_output (request_rec * r, struct mod_ip_request_t *formdata)
 	RIP = escape_string (r, (char *) apr_table_get (r->headers_in, "X-Real-IP"));
 	VIA = escape_string (r, (char *) apr_table_get (r->headers_in, "Via"));
 
-        if (strlen(VIA)>0) 
+        if (strlen(RIP)>0) 
                 myip = RIP;
 	if (!myip)
 		myip = "0.0.0.0 undefined";
 	if (formdata->testip)
 		myip = formdata->testip;
-		
+
         /* If Teredo or 6to4, don't do ASN lookups.  The data will always show *some* ISP, but it isn't ours.*/
 	if ((strncmp(myip,"2001:0:",7)==NULL) || (strncmp(myip,"2002:",5)==NULL)) {
 	  formdata->getasn=0;
