@@ -31,6 +31,9 @@
 
 /* Changes:
  * 
+ * 2020-04-18 - jfesler@gigo.com
+ *              Support X-Real-IP
+ *
  * 2013-04-29 - jfesler@gigo.com
  *              Add headers to output (content type, expires, cache control)
  *              Stop depending on mod_headers (and user config)
@@ -356,23 +359,19 @@ gen_output (request_rec * r, struct mod_ip_request_t *formdata)
 	char *p = NULL;
 	int added = 0;
 	char *myip = CLIENT_IP(r);
-	char *realip = escape_string (r, (char *) apr_table_get (r->headers_in, "X-Real-IP"));
 	char *mytype = "ipv4";
 	char *mysubtype = "";
 	char *VIA = "";
 	char *RIP = "";
 	char *asnlist = NULL;
 	
-	if realip != NULL && strlen(realip)>0  {
-	  myip=realip
-	}
 
 	/* Identify X-Forwarded-For; include in results after stripping characters. */
 	RIP = escape_string (r, (char *) apr_table_get (r->headers_in, "X-Real-IP"));
 	VIA = escape_string (r, (char *) apr_table_get (r->headers_in, "Via"));
 
         if (strlen(VIA)>0) 
-                myip = RIP
+                myip = RIP;
 	if (!myip)
 		myip = "0.0.0.0 undefined";
 	if (formdata->testip)
