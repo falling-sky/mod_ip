@@ -360,6 +360,7 @@ gen_output (request_rec * r, struct mod_ip_request_t *formdata)
 	char *mytype = "ipv4";
 	char *mysubtype = "";
 	char *VIA = "";
+	char *RIP = "";
 	char *asnlist = NULL;
 	
 	if realip != NULL && strlen(realip)>0  {
@@ -367,8 +368,11 @@ gen_output (request_rec * r, struct mod_ip_request_t *formdata)
 	}
 
 	/* Identify X-Forwarded-For; include in results after stripping characters. */
+	RIP = escape_string (r, (char *) apr_table_get (r->headers_in, "X-Real-IP"));
 	VIA = escape_string (r, (char *) apr_table_get (r->headers_in, "Via"));
 
+        if (strlen(VIA)>0) 
+                myip = RIP
 	if (!myip)
 		myip = "0.0.0.0 undefined";
 	if (formdata->testip)
