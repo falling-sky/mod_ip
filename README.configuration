@@ -40,8 +40,6 @@ This is what we use with test-ipv6.com:
      SetHandler mod_ip
     </locationMatch>
 
-    # You may optionally include the output of ./scan-sixxs.pl here
-
     </VirtualHost>
 
 
