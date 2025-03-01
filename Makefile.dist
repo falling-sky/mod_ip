@@ -1,4 +1,4 @@
-DISTRIBUTE = configure config.h NOTICE README README.configuration mod_ip.c ip2asn.c ip2asn.h Makefile.in config.h.in scan-sixxs.pl
+DISTRIBUTE = configure config.h NOTICE README README.configuration mod_ip.c ip2asn.c ip2asn.h Makefile.in config.h.in
 DIST_WORKDIR = work
 
 dist-prep::
