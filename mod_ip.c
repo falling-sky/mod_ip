@@ -94,6 +94,8 @@
 #include <apr_strings.h>
 #include <apr_network_io.h>
 
+#include "ip2asn.h"
+
 /* Those unfortunately look like they claim the autoconf variables, so let's undefine them */
 
 #undef PACKAGE_VERSION
@@ -163,7 +165,7 @@ typedef struct
 } mod_ip_svr_cfg;
 
 
-static void *mod_ip_create_svr_conf (apr_pool_t * pool, char *x);
+static void *mod_ip_create_svr_conf (apr_pool_t * pool, server_rec *x);
 static void *mod_ip_merge_svr_conf (apr_pool_t * pool, void *BASE, void *ADD);
 static void mod_ip_hooks (apr_pool_t * pool);
 static const char *mod_ip_config_subnet (cmd_parms * cmd, void *CFG, const char *arg1, const char *arg2);
@@ -378,7 +380,7 @@ gen_output (request_rec * r, struct mod_ip_request_t *formdata)
 		myip = formdata->testip;
 
         /* If Teredo or 6to4, don't do ASN lookups.  The data will always show *some* ISP, but it isn't ours.*/
-	if ((strncmp(myip,"2001:0:",7)==NULL) || (strncmp(myip,"2002:",5)==NULL)) {
+	if ((strncmp(myip, "2001:0:", 7) == 0) || (strncmp(myip, "2002:", 5) == 0)) {
 	  formdata->getasn=0;
 	}	
 		
@@ -395,7 +397,7 @@ gen_output (request_rec * r, struct mod_ip_request_t *formdata)
 	ap_rputs(p, r);
 	output_len = strlen (p) + 4;
 
-	int my_asn ;
+	unsigned long int my_asn ;
 	char * asn_name ;
 
 	if (formdata->getasn) {
@@ -583,7 +585,7 @@ mod_ip_config_subnet (cmd_parms * cmd, void *CFG, const char *arg1, const char *
 
 
 void *
-mod_ip_create_svr_conf (apr_pool_t * pool, char *x)
+mod_ip_create_svr_conf (apr_pool_t * pool, server_rec *x)
 {
 	mod_ip_svr_cfg *svr = apr_pcalloc (pool, sizeof (mod_ip_svr_cfg));
 	svr->cidrinfo = apr_array_make (pool, MAX_PREFIXES, sizeof (cidrinfo_type));
